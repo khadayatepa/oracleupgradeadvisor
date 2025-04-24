@@ -2,7 +2,7 @@ import streamlit as st
 from openai import OpenAI
 
 st.set_page_config(page_title="Oracle DB Upgrade Advisor - By Prashant K", layout="centered")
-st.title("Oracle Database Upgrade & Migration Advisor")
+st.title("Oracle Database Upgrade & Migration Advisor - By Prashant K")
 
 # API key input
 openai_api_key = st.text_input("Enter your OpenAI API Key", type="password")
