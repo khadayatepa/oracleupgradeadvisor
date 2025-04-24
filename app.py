@@ -1,7 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 
-st.set_page_config(page_title="Oracle DB Upgrade Advisor", layout="centered")
+st.set_page_config(page_title="Oracle DB Upgrade Advisor - By Prashant K", layout="centered")
 st.title("Oracle Database Upgrade & Migration Advisor")
 
 # API key input
