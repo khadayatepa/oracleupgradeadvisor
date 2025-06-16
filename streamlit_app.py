@@ -1,35 +1,11 @@
-from flask import Flask, render_template_string, request
+import streamlit as st
 
-app = Flask(__name__)
+st.title("Oracle Upgrade Advisor")
 
-HTML_FORM = '''
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Oracle Upgrade Advisor</title>
-</head>
-<body>
-    <h2>Oracle Upgrade Advisor</h2>
-    <form method="post">
-        <label for="option">Choose an option:</label>
-        <select name="option" id="option" required>
-            <option value="">--Please select--</option>
-            <option value="upgrade">Upgrade Implementation Plan</option>
-            <option value="migration">Migration Plan</option>
-        </select>
-        <button type="submit">Submit</button>
-    </form>
-    {% if steps %}
-    <h3>Implementation Steps:</h3>
-    <ol>
-      {% for step in steps %}
-      <li>{{ step }}</li>
-      {% endfor %}
-    </ol>
-    {% endif %}
-</body>
-</html>
-'''
+option = st.selectbox(
+    "Choose an option:",
+    ("--Please select--", "Upgrade Implementation Plan", "Migration Plan")
+)
 
 UPGRADE_STEPS = [
     "Analyze the current Oracle Database version and environment.",
@@ -64,16 +40,14 @@ MIGRATION_STEPS = [
     "Monitor system for issues post-migration."
 ]
 
-@app.route('/', methods=['GET', 'POST'])
-def advisor():
-    steps = None
-    if request.method == 'POST':
-        option = request.form.get('option')
-        if option == 'upgrade':
-            steps = UPGRADE_STEPS
-        elif option == 'migration':
-            steps = MIGRATION_STEPS
-    return render_template_string(HTML_FORM, steps=steps)
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if st.button("Submit"):
+    if option == "Upgrade Implementation Plan":
+        st.subheader("Implementation Steps: Upgrade")
+        for i, step in enumerate(UPGRADE_STEPS, 1):
+            st.markdown(f"{i}. {step}")
+    elif option == "Migration Plan":
+        st.subheader("Implementation Steps: Migration")
+        for i, step in enumerate(MIGRATION_STEPS, 1):
+            st.markdown(f"{i}. {step}")
+    else:
+        st.warning("Please select an option before submitting.")
